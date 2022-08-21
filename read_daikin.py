@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-#!/usr/bin/python
+
 from websocket import create_connection
 import json
 import requests
@@ -9,7 +9,7 @@ def read(ws, to):
     ws.send(msg.replace("$to$", to))
     j = json.loads(ws.recv())
     r = j["m2m:rsp"]["pc"]["m2m:cin"]["con"]
-    print("{to}: {r}".format(to=to,r=r))
+#    print("{to}: {r}".format(to=to,r=r))
     return r
 
 def main():
@@ -32,11 +32,11 @@ def main():
     export["tank_immersion_on"] = tank_immersion_on
     export["tank_target"] = tank_target
 
-    print(json.dumps(export, indent=4))
+#    print(json.dumps(export, indent=4))
 
     r = requests.post("http://localhost/input/post?node=daikin&apikey=b215641cf41c8ed618172ec7911f566c&data=" + json.dumps(export))
-    print(r.status_code)
-    print(r.text)
+#    print(r.status_code)
+#    print(r.text)
     if r.text != "ok":
         print(r.json())
 
