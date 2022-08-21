@@ -3,6 +3,7 @@
 from websocket import create_connection
 import json
 import requests
+import time
 
 def read(ws, to):
     msg = "{\"m2m:rqp\":{\"op\":2,\"to\":\"/[0]/MNAE/$to$\",\"fr\":\"/beep\",\"rqi\":\"blah\"}}"
@@ -12,9 +13,7 @@ def read(ws, to):
 #    print("{to}: {r}".format(to=to,r=r))
     return r
 
-def main():
-    ws = create_connection("ws://192.168.0.150/mca")
-
+def doWork():
     ashp_temp_lw = read(ws, "1/Sensor/LeavingWaterTemperatureCurrent/la")
     ashp_temp_in = read(ws, "1/Sensor/IndoorTemperature/la")
     ashp_temp_out = read(ws, "1/Sensor/OutdoorTemperature/la")
@@ -41,4 +40,8 @@ def main():
         print(r.json())
 
 if __name__ == "__main__":
-  main()
+    ws = create_connection("ws://192.168.0.150/mca")
+
+    while True:
+        doWork()
+        time.sleep(5)
