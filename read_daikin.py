@@ -14,6 +14,8 @@ def read(ws, to):
     return r
 
 def doWork():
+    ws = create_connection("ws://192.168.0.150/mca")
+
     ashp_temp_lw = read(ws, "1/Sensor/LeavingWaterTemperatureCurrent/la")
     ashp_temp_in = read(ws, "1/Sensor/IndoorTemperature/la")
     ashp_temp_out = read(ws, "1/Sensor/OutdoorTemperature/la")
@@ -40,8 +42,6 @@ def doWork():
         print(r.json())
 
 if __name__ == "__main__":
-    ws = create_connection("ws://192.168.0.150/mca")
-
     while True:
         doWork()
         time.sleep(5)
