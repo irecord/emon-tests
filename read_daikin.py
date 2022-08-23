@@ -41,7 +41,12 @@ def doWork():
 
 if __name__ == "__main__":
     while True:
-        ws = create_connection("ws://192.168.0.150/mca")
-        doWork()
-        ws.close()
+        try:
+            ws = create_connection("ws://192.168.0.150/mca")
+            try:
+                doWork()
+            except websockets.exceptions.WebSocketException:
+                pass
+        finally:
+            ws.close()
         time.sleep(5)
