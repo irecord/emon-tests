@@ -47,6 +47,8 @@ if __name__ == "__main__":
                 doWork()
             except websockets.exceptions.WebSocketException:
                 pass
+        except Exception:
+            pass
         finally:
             ws.close()
         time.sleep(5)
